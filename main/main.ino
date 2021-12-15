@@ -410,7 +410,7 @@ void setup(void) {
 
 void loop(void) {
   double temp, hum, lux, voltage, pres;
-  int turbidez;
+  double turbidez;
   byte segundos, minutos, hora, diaSemana, diaMes, mes, anio;
   boolean nivel_agua;
   
@@ -428,7 +428,7 @@ void loop(void) {
   hum = bme.readHumidity();                                                      /* Lectura del sensor humedad */
   pres = bme.readPressure() / 100.0F;                                            /* Lectura del sensor presion */
   voltage = analogRead(PIN_TURBIDITY) * (5.0 / 1024.0);                          /* Lectura del conversor analogico-digital del sensor de turbidez */
-  turbidez = int(voltage*(4550.0/5.0));                                          /* Conversion del valor de la turbidez a su correspondiente unidad (NTU) */
+  turbidez = voltage*(4550.0/20.0);                                               /* Conversion del valor de la turbidez a su correspondiente unidad (NTU) */
   nivel_agua = digitalRead(PIN_NIVEL_AGUA);                                      /* Lectura del sensor de nivel de agua */
 
   digitalWrite(PIN_BOMBA, HIGH);                                                 /* Se enciende la bomba de agua */
