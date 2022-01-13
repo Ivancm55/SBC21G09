@@ -3,6 +3,7 @@
 #define PIN_NIVEL_AGUA 21
 #define PIN_BOMBA 23
 #define PIN_TURBIDITY 35
+#define PIN_RELE 33
 #define PIN_RX_DISPLAY 25
 #define PIN_TX_DISPLAY 26
 #define RESETLINE 27  /* Pin RES para el display */

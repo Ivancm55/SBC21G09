@@ -6,14 +6,14 @@
 
 /* Funcion para habilitar el mantener el valor en los pines del display y del led */
 void rtc_hold_en_pines() {
-  esp_err_t rtc_gpio_hold_en1(GPIO_NUM_14);    /* Led */
-  esp_err_t rtc_gpio_hold_en2(GPIO_NUM_23);    /* Bomba */
+  esp_err_t rtc_gpio_hold_en1(gpio_num_t(14));    /* Led */
+  esp_err_t rtc_gpio_hold_en2(gpio_num_t(23));    /* Bomba */
 }
 
 /* Funcion para deshabilitar el mantener el valor en los pines del display y del led */
 void rtc_hold_dis_pines() {
-  esp_err_t rtc_gpio_hold_dis1(GPIO_NUM_14);   /* Led */
-  esp_err_t rtc_gpio_hold_dis2(GPIO_NUM_23);   /* Bomba */
+  esp_err_t rtc_gpio_hold_dis1(gpio_num_t(14));   /* Led */
+  esp_err_t rtc_gpio_hold_dis2(gpio_num_t(23));   /* Bomba */
 }
 
 

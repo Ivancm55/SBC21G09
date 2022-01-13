@@ -33,8 +33,8 @@ BH1750 sensorLuz(0x5C);
 
 /* Conexion a la red WiFi */
 const char* host = "SBC21G09";
-const char* ssid = "SBC";
-const char* password = "sbc$2020";
+const char* ssid = "iPhone"; //"SBC";
+const char* password = "tive3hihok4yj"; //"sbc$2020";
 
 /* Iniciar servidor web */
 WebServer server(80);
@@ -384,6 +384,10 @@ void setup(void) {
   /* Se inicializa como salida el pin 23 referente a la bomba de agua */
   pinMode(PIN_BOMBA, OUTPUT);
 
+  /* Se inicializa como salida el pin 28 referente al rele */
+  pinMode(PIN_RELE, OUTPUT);
+
+  /* Se inicializa como salida el pin 35 referente al sensor de turbidez */
   pinMode(PIN_TURBIDITY, INPUT);
 
   /* Se inicializa el sensor BME280 en la direccion 0x76 */
@@ -428,10 +432,11 @@ void loop(void) {
   hum = bme.readHumidity();                                                      /* Lectura del sensor humedad */
   pres = bme.readPressure() / 100.0F;                                            /* Lectura del sensor presion */
   voltage = analogRead(PIN_TURBIDITY) * (5.0 / 1024.0);                          /* Lectura del conversor analogico-digital del sensor de turbidez */
-  turbidez = voltage*(4550.0/20.0);                                               /* Conversion del valor de la turbidez a su correspondiente unidad (NTU) */
+  turbidez = voltage*(4550.0/20.0);                                          /* Conversion del valor de la turbidez a su correspondiente unidad (NTU) */
   nivel_agua = digitalRead(PIN_NIVEL_AGUA);                                      /* Lectura del sensor de nivel de agua */
 
   digitalWrite(PIN_BOMBA, HIGH);                                                 /* Se enciende la bomba de agua */
+  digitalWrite(PIN_RELE, HIGH);                                                 /* Se enciende el rele */
   
   /* Eventos a actualizar en el display */
   genie.DoEvents();  /* Funcion que se encarga de procesar las respuestas del display */
@@ -442,7 +447,7 @@ void loop(void) {
   if(turbidez > 4550)
     genie.WriteStr(6, "NC");
   else
-    genie.WriteStr(6, turbidez, 2);
+    genie.WriteStr(6, turbidez, 1);
   if(nivel_agua) {
     genie.WriteStr(2, "No hay agua");
   }
@@ -501,6 +506,7 @@ void loop(void) {
   delay(15000);     /* Delay solo para la demostracion del Sleep Mode, en implementacion real hay que quitarlo */
   genie.WriteObject(GENIE_OBJ_USER_LED, 0, true);   /* Encender el led indicador del Sleep Mode */
   rtc_hold_en_pines();     /* Enable hold pines */
+  digitalWrite(PIN_RELE, LOW);                    /* Se apaga el rele */
 
   goToDeepSleep();         /* Enviar al procesador a domir (Deep Sleep) */
   //goToLightSleep();      /* Enviar al procesador a domir (Light Sleep) */
