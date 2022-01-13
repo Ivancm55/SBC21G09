@@ -33,8 +33,8 @@ BH1750 sensorLuz(0x5C);
 
 /* Conexion a la red WiFi */
 const char* host = "SBC21G09";
-const char* ssid = "iPhone"; //"SBC";
-const char* password = "tive3hihok4yj"; //"sbc$2020";
+const char* ssid = "SBC";
+const char* password = "sbc$2020";
 
 /* Iniciar servidor web */
 WebServer server(80);
